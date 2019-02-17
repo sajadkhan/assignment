@@ -34,6 +34,16 @@ class GridViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         items = GridModel.items()
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(tap))
+        view.addGestureRecognizer(gesture)
+    }
+    
+    @objc private func tap() {
+        if activeTextField != nil {
+            activeTextField!.resignFirstResponder()
+            activeTextField = nil
+        }
     }
 
     @IBAction func itemCountTextFieldValueChanged(_ sender: UITextField) {
@@ -63,13 +73,6 @@ extension GridViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let height: CGFloat = 100.0
         let width = ((collectionView.frame.size.width / 2.0) - 10.0)
         return CGSize(width: width, height: height)
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if activeTextField != nil {
-            activeTextField!.resignFirstResponder()
-            activeTextField = nil
-        }
     }
     
 }
